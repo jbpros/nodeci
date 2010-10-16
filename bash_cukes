@@ -1,0 +1,4 @@
+/Users/jbpros/.rvm/bin/rvm use 1.8.7
+/Users/jbpros/.rvm/bin/rvm gemset use valipat
+cd /Users/jbpros/Projects/valipat
+rake cucumber
