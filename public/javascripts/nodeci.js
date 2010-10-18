@@ -9,13 +9,23 @@ function NodeciClient() {
   };
 
   this.setupBayeuxHandlers = function() {
+    var status = $('.status');
+    var log = $('.log');
     self.client = new Faye.Client('http://localhost:8124/faye', {
       timeout: 120
     });
-    self.client.subscribe('/status', function(message){
-      var message = $('#message');
-      message.text(message.text() + '!');
-      console.log('MESSAGE', message);
+    self.client.subscribe('/status', function(data){
+      if (data['finished'] && data['succeeded']) {
+        status.text("SUCCEEDED");
+      } else if (data['finished']) {
+        status.text("FAILED");
+      } else {
+        status.text("BUILDING");
+        log.text('');
+      }
+    });
+    self.client.subscribe('/log', function(data) {
+      log.text(log.text() + data);
     });
   };
 
