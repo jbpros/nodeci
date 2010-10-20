@@ -1,0 +1,40 @@
+@import "reset.css";
+
+/* @font-face
+{
+  font-family:tisa;
+  src:local("TisaPro-Bold"), url('fonts/TisaPro-Bold.otf');
+} */
+
+html
+{
+  font:.9em/1.5 "helvetica neue", helvetica, arial, "nimbus sans l", sans-serif; 
+  color:#222;       
+  background:#ddd;
+  margin:1em;
+}
+
+a
+{
+  color:#ffbd9c;
+  font-weight:normal;
+  text-decoration:none;
+}
+
+p
+{
+  margin:1.2em 0;  
+}
+
+h1 {
+  font-size:2em;
+}
+
+.actions {
+  float:left;
+  padding:0 1em;
+}
+
+.log {
+  clear:both;
+}

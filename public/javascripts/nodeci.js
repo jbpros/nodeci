@@ -4,36 +4,73 @@ function NodeciClient() {
   }
   var self = this;
 
-  this.init = function() {
+  self.init = function() {
     self.setupBayeuxHandlers();
+    self.initDisplays();
   };
 
-  this.setupBayeuxHandlers = function() {
-    var status = $('.status');
-    var log = $('.log');
-    self.client = new Faye.Client('http://localhost:8124/faye', {
+  self.setupBayeuxHandlers = function() {
+    var log_el = $('.log');
+    self.client = new Faye.Client('http://'+window.location.hostname+':8124/faye', {
       timeout: 120
     });
-    self.client.subscribe('/status', function(data){
-      if (data['finished'] && data['succeeded']) {
-        status.text("SUCCEEDED");
-      } else if (data['finished']) {
-        status.text("FAILED");
-      } else {
-        status.text("BUILDING");
-        log.text('');
-      }
-    });
-    self.client.subscribe('/log', function(data) {
-      log.text(log.text() + data);
+    self.client.subscribe('/status', function(status){
+      self.displayStatus(status);
     });
   };
 
+  self.initDisplays = function() {
+    $.getJSON("/status", function(status) {
+      self.displayStatus(status);
+    });
+    $.getJSON("/log", function(log) {
+      var log_el = $('.log');
+      log_el.text(log);
+      self.client.subscribe('/log', function(data) {
+        log_el.text(log_el.text() + data);
+      });
+    });    
+  };
+
+  self.requestNewBuild = function() {
+    $.getJSON("/exec");
+  };
+
+  self.requestBuildKill = function() {
+    $.getJSON("/kill");
+  };
+
+  self.displayStatus = function(status) {
+    var status_el = $('.status');
+    var log_el = $('.log');
+    switch(status) {
+      case 'succeeded':
+      status_el.text("SUCCEEDED");
+      break
+    case 'failed':
+      status_el.text("FAILED");
+        break;
+    case 'building':
+      status_el.text("BUILDING");
+      log_el.text('');
+      break;
+    default:
+      status_el.text("IDLE");
+    }
+  }
   self.init();
 };
 
 var NodeciClient;
 
 jQuery(function() {
-  NodeciClient = new NodeciClient();
+  nodeciClient = new NodeciClient();
+    
+  $('.build').click(function() {
+    nodeciClient.requestNewBuild();
+  });
+
+  $('.kill').click(function() {
+    nodeciClient.requestBuildKill();
+  });
 });
