@@ -11,7 +11,7 @@ function NodeciClient() {
 
   self.setupBayeuxHandlers = function() {
     var log_el = $('.log');
-    self.client = new Faye.Client('http://'+window.location.hostname+':8124/faye', {
+    self.client = new Faye.Client('http://'+window.location.hostname+':'+window.location.port+'/faye', {
       timeout: 120
     });
     self.client.subscribe('/status', function(status){
