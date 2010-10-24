@@ -21,7 +21,7 @@ function NodeciClient() {
 
   self.initDisplays = function() {
     $.getJSON("/status", function(status) {
-      self.displayStatus(status);
+      self.displayStatus(status, true);
     });
     $.getJSON("/log", function(log) {
       var log_el = $('.log');
@@ -43,7 +43,10 @@ function NodeciClient() {
     $.getJSON("/kill");
   };
 
-  self.displayStatus = function(status) {
+  self.displayStatus = function(status, init) {
+    if (typeof(init) == 'undefined') {
+      init = false;
+    }
     var status_el = $('.status');
     var control_panel_el = $('.control-panel');
     var log_el = $('.log');
@@ -64,7 +67,9 @@ function NodeciClient() {
     case 'building':
       status_el.text("Building");
       control_panel_el.addClass('building');
-      log_el.text('');
+      if (!init) {
+        log_el.text('');
+      }
       break;
     default:
       status_el.text("Idle");
