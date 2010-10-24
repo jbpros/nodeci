@@ -1,16 +1,18 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <title>Nodeci</title>
+    <title class="name">Nodeci</title>
     <link rel="stylesheet" href="stylesheets/nodeci.css" media="screen">
     <script type="text/javascript" src="/faye.js"></script>
     <script type="text/javascript" src="/javascripts/jquery-1.4.3.min.js"></script>
     <script type="text/javascript" src="/javascripts/nodeci.js"></script>
   </head>
   <body>
-    <h1>Nodeci</h1>
-    <p class="actions"><button class="build">Build</button><button class="kill">Kill</button></p>
-    <p class="status">UNKNOWN STATUS</p>
+    <h1 class="name">Nodeci</h1>
+    <div class="control-panel">
+      <p class="status">Loading...</p>
+      <p class="actions"><button class="build">Build</button><button class="kill">Kill</button></p>
+    </div>
     <pre class="log"></pre>
   </body>
 </html>

@@ -28,13 +28,49 @@ p
 
 h1 {
   font-size:2em;
-}
-
-.actions {
-  float:left;
-  padding:0 1em;
+  margin: 1em 0;
 }
 
 .log {
   clear:both;
+}
+
+.control-panel {
+  display:block;
+  position:fixed;
+  right:1em;
+  top:1em;
+  background-color:rgba(255,255,255,.5);
+  -moz-border-radius:6px;
+  border-radius:6px;
+  padding:0 1em;
+  width:8em;
+  -webkit-box-shadow:2px 2px 2px rgba(0,0,0,.2);
+  -moz-box-shadow:2px 2px 2px rgba(0,0,0,.2);
+  box-shadow:2px 2px 2px rgba(0,0,0,.2);
+  -webkit-transition:background-color 1s linear;
+  -moz-transition:background-color 1s linear;
+  -o-transition:background-color 1s linear; 
+}
+
+.control-panel.idle { background-color:rgba(255,255,255,.9); }
+.control-panel.building { background-color:rgba(255,240,195,.9); }
+.control-panel.succeeded { background-color:rgba(177,229,177,.8); }
+.control-panel.failed { background-color:rgba(255,100,100,.8); }
+
+button.build {
+  width:100%;
+}
+
+button.kill {
+  display:none;
+}
+
+.status {
+  font-size:1.4em;
+  text-align:center;
+}
+
+.log {
+  overflow:auto;
 }

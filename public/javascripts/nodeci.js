@@ -29,7 +29,10 @@ function NodeciClient() {
       self.client.subscribe('/log', function(data) {
         log_el.text(log_el.text() + data);
       });
-    });    
+    });
+    $.getJSON('/name', function(name) {
+      $('.name').text(name);      
+    });
   };
 
   self.requestNewBuild = function() {
@@ -42,20 +45,30 @@ function NodeciClient() {
 
   self.displayStatus = function(status) {
     var status_el = $('.status');
+    var control_panel_el = $('.control-panel');
     var log_el = $('.log');
+    control_panel_el.
+      removeClass('succeeded').
+      removeClass('failed').
+      removeClass('building').
+      removeClass('idle');
     switch(status) {
       case 'succeeded':
-      status_el.text("SUCCEEDED");
+      status_el.text("Succeeded");
+      control_panel_el.addClass('succeeded');
       break
     case 'failed':
-      status_el.text("FAILED");
-        break;
+      status_el.text("Failed");
+      control_panel_el.addClass('failed');
+      break;
     case 'building':
-      status_el.text("BUILDING");
+      status_el.text("Building");
+      control_panel_el.addClass('building');
       log_el.text('');
       break;
     default:
-      status_el.text("IDLE");
+      status_el.text("Idle");
+      control_panel_el.addClass('idle').addClass('idle');
     }
   }
   self.init();
@@ -72,5 +85,12 @@ jQuery(function() {
 
   $('.kill').click(function() {
     nodeciClient.requestBuildKill();
+  });
+
+  $('body').keypress(function(event) {
+    // 'B'
+    if (event.keyCode == 98 || event.keyCode == 66) {
+      nodeciClient.requestNewBuild();
+    }
   });
 });
