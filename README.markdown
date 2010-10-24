@@ -28,6 +28,7 @@ Configuration is stored in `config/nodeci_config.js`:
     var options = {
         hostname: "0.0.0.0",
         port: 8126,
+        name: "Project",
         build: {
             command: '/bin/bash',
             args:    ['-l', './bash_cukes']
