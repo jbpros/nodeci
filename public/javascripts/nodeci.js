@@ -17,6 +17,9 @@ function NodeciClient() {
     self.client.subscribe('/status', function(status){
       self.displayStatus(status);
     });
+    self.client.subscribe('/build-end', function(build) {
+      self.displayBuildRecord(build);
+    });
   };
 
   self.initDisplays = function() {
@@ -76,6 +79,13 @@ function NodeciClient() {
       control_panel_el.addClass('idle').addClass('idle');
     }
   }
+
+  self.displayBuildRecord = function(build) {
+    var resultClass = build.succeeded ? 'succeeded' : 'failed';
+    var finishedAt  = new Date();
+    finishedAt.setTime(build.finishedAt);
+    $('.builds').append($('<li class="'+resultClass+'">'+finishedAt+'</li>'));
+  };
   self.init();
 };
 
