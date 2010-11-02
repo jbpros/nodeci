@@ -38,7 +38,7 @@ function NodeciClient() {
     });
     $.getJSON('/builds', function(builds) {
       for (i in builds) {
-        self.displayBuildRecord(builds[i]);
+        self.displayBuildRecord(builds[builds.length - i - 1]);
       }
     });
   };
