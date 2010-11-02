@@ -44,7 +44,7 @@ function NodeciClient() {
   };
 
   self.requestNewBuild = function() {
-    $.getJSON("/exec");
+    $.getJSON("/build");
   };
 
   self.requestBuildKill = function() {
