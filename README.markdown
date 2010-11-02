@@ -17,6 +17,8 @@ means success, anything else is a failure).
 [Node.js](http://nodejs.org/ "Node.js official website") is required.
 
     $ git clone <nodeci-repos>
+    $ git submodule init
+    $ git submodule update
     
 ## Configuration
 

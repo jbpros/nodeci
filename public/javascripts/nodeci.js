@@ -14,7 +14,7 @@ function NodeciClient() {
     self.client = new Faye.Client('http://'+window.location.hostname+':'+window.location.port+'/faye', {
       timeout: 120
     });
-    self.client.subscribe('/status', function(status){
+    self.client.subscribe('/status', function(status) {
       self.displayStatus(status);
     });
     self.client.subscribe('/build-end', function(build) {
@@ -35,6 +35,11 @@ function NodeciClient() {
     });
     $.getJSON('/name', function(name) {
       $('.name').text(name);      
+    });
+    $.getJSON('/builds', function(builds) {
+      for (i in builds) {
+        self.displayBuildRecord(builds[i]);
+      }
     });
   };
 
@@ -84,12 +89,28 @@ function NodeciClient() {
     var resultClass = build.succeeded ? 'succeeded' : 'failed';
     var finishedAt  = new Date();
     finishedAt.setTime(build.finishedAt);
-    $('.builds').append($('<li class="'+resultClass+'">'+finishedAt+'</li>'));
+    $('.builds').prepend($('<li class="'+resultClass+'">' + Utils.dateToString(finishedAt) + '</li>'));
   };
   self.init();
 };
 
 var NodeciClient;
+var Utils = {
+  dateToString: function(date) {
+    function leadingZero(value) {
+      return (value < 10 ? "0" + value : value);        
+    }
+    
+    var year    = date.getFullYear();
+    var month   = leadingZero(date.getMonth());
+    var day     = leadingZero(date.getDay());
+    var hours   = leadingZero(date.getHours());
+    var minutes = leadingZero(date.getMinutes());
+    var seconds = leadingZero(date.getSeconds());
+
+    return year+'-'+month+'-'+day+' '+hours+':'+minutes+':'+seconds
+  }
+};
 
 jQuery(function() {
   nodeciClient = new NodeciClient();
