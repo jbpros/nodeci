@@ -56,10 +56,13 @@ h1 {
   overflow:auto;
 }
 
-.control-panel.idle { background-color:rgba(255,255,255,.9); }
-.control-panel.building { background-color:rgba(255,240,195,.9); }
+.control-panel.idle      { background-color:rgba(255,255,255,.9); }
+.control-panel.building  { background-color:rgba(255,240,195,.9); }
 .control-panel.succeeded { background-color:rgba(177,229,177,.8); }
-.control-panel.failed { background-color:rgba(255,100,100,.8); }
+.control-panel.failed    { background-color:rgba(255,100,100,.8); }
+.control-panel.preparing { background-color:rgba(202,100,255,.6); }
+
+.control-panel.preparing .actions { opacity:.3; }
 
 button.build {
   width:100%;
@@ -77,6 +80,9 @@ button.kill {
 
 .actions {
   margin:1em 0;
+  -webkit-transition: opacity .4s ease-out;
+  -moz-transition: opacity .4s ease-out;
+  -o-transition: opacity .4s ease-out;
 }
 
 .builds {

@@ -62,6 +62,7 @@ function NodeciClient() {
       removeClass('succeeded').
       removeClass('failed').
       removeClass('building').
+      removeClass('preparing').
       removeClass('idle');
     switch(status) {
       case 'succeeded':
@@ -78,6 +79,10 @@ function NodeciClient() {
       if (!init) {
         log_el.text('');
       }
+      break;
+    case 'preparing':
+      status_el.text('Preparing');
+      control_panel_el.addClass('preparing');
       break;
     default:
       status_el.text("Idle");
