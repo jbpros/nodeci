@@ -1,3 +1,9 @@
+# THIS IS AN EXPERIMENT - Not tested, ugly code
+
+This is my first attempt at writing Node.js code. Untested, crappy code.
+
+It proved to work and I'm working on a real project which should get live in March 2011.  
+
 # Nodeci
 
 Continuous Integration server based on Node.js.
